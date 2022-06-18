@@ -34,7 +34,7 @@ def home():
         id = form.id.data
         longitude = ref.child("parcel").child(id).child("longitude").get()
         latitude = ref.child("parcel").child(id).child("latitude").get()
-        description = "Last seen on: " + ref.child("parcel").child(id).child("last_update").get()[:-14]
+        description = "Last seen on " + ref.child("parcel").child(id).child("last_update").get()[:-14]
         default = 0
     else:
         longitude = default_longitude
