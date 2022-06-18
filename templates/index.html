@@ -1,0 +1,76 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+  integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+  crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+  integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+  crossorigin=""></script>
+  <title>Document</title>
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+      <div class="container">
+        <a class="navbar-brand mr-4 lg" href="/">Parcel Tracking</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+          <div class="navbar-nav mr-auto">
+
+          </div>
+          <!-- Navbar Right Side -->
+          <form method="POST" action="">
+            <div class="container mt-2 mb-0">
+              <div class="row align-items-center justify-content-right">
+                <fieldset>
+                <div>
+                  {{ form.id(class="form-control form-control-lg align-middle w-100") }}
+                </div>
+                </fieldset>
+                <div>
+                  {{ form.submit(class="btn btn-lg btn-page-outline align-middle") }}
+                </div>
+              </div>
+            </div>
+        </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div id='map'></div>
+  <script>
+    if (!{{default}}) {
+      var map = L.map('map').setView([{{latitude}}, {{longitude}}], 13);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+      var circle = L.circle([{{latitude}}, {{longitude}}], {
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.5,
+        radius: 200
+    }).addTo(map);
+    var popup = L.popup()
+    .setLatLng([{{latitude}}, {{longitude}}])
+    .setContent(text)
+    .openOn(map);
+    }
+    else {
+      var map = L.map('map').setView([{{latitude}}, {{longitude}}], 8);
+     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    }
+  </script>
+
+</body>
+</html>
